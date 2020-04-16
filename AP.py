@@ -20,7 +20,14 @@ class AP():
         self.non_terminal_initial = ntI
 
     def setProductions(self, prod):
-        self.productions.append(prod)
+        nt = prod.split(">")[0]
+        prods = prod.split(">")[1]
+        
+        production = {
+            "NT": nt,
+            "prod": prods
+        }
+        self.productions.append(production)
 
     def setTransitions(self):
         for item in self.productions:
@@ -41,18 +48,29 @@ class AP():
             }
 
             # Establece transicion para prod. inicial
-            if (item[0] == self.non_terminal_initial):
-                self.setInitialTransition(transition, item[0])
+            if (item["NT"] == self.non_terminal_initial):
+                self.setInitialTransition(transition, item)
+            
+            self.setSecondTransition(transition, item)
     
     def setInitialTransition(self, transition, item):
         transition["first"]["from"] = "p"
         transition["first"]["readed"] = "epsilon"
         transition["first"]["output"] = "epsilon"
         transition["last"]["to"] = "q"
-        transition["last"]["input"] = item
-        transition["string"] = f"p,epsilon,epsilon;q,{item}"
-        initialTransition = transition
-        self.transitions.append(initialTransition)        
+        transition["last"]["input"] = item["NT"]
+        transition["string"] = f"p,epsilon,epsilon;q,{item['NT']}"
+        firstTransition = transition
+        self.transitions.append(firstTransition)
+
+    def setSecondTransition(self, transition, item):
+        transition["first"]["from"] = "q"
+        transition["first"]["readed"] = "epsilon"
+        transition["first"]["output"] = item["NT"]
+        transition["last"]["to"] = "q"
+        transition["last"]["input"] = item["prod"]
+        secondTransition = transition
+        self.transitions.append(secondTransition)
 
     def getNonTerminals(self):
         return self.non_terminals
