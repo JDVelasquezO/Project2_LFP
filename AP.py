@@ -138,7 +138,8 @@ class AP():
                 print(f"Pila actual: {stack.getItems()}")
 
             if letter == stack.getLastItem():
-                stack.pop()
+                if stack.getLength() > 1:
+                    stack.pop()
         
         print('epsilon')
 
