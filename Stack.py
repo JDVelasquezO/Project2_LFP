@@ -12,10 +12,18 @@ class Stack():
     def pop(self):
         return self.items.pop()
 
-    def getLastItems(self):
-        return self.items[len(self.items)-1]
+    def getLastItem(self):
+        if len(self.items) > 0:
+            return self.items[len(self.items)-1]
+        else:
+            return "epsilon"
+
+    # def getPenultimateItem(self):
+    #     return self.items[len(self.items)-2]
     
     def getItems(self):
+        if len(self.items) == 0:
+            return "epsilon"
         return self.items
 
     def searchIndexById(self, id):

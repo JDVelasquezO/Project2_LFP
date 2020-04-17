@@ -1,3 +1,5 @@
+from Stack import Stack
+
 class AP():
 
     name = ""
@@ -6,6 +8,7 @@ class AP():
     non_terminal_initial = ""
     productions = []
     transitions = []
+    firstOutput_lastInput = []
     
     def __init__(self, name):
         self.name = name
@@ -58,6 +61,7 @@ class AP():
                 transition = self.createTransition()
 
             self.setSecondTransition(transition, item)
+            transition = self.createTransition()
         self.setThirdTransitions(transition)
     
     def setInitialTransition(self, transition, item):
@@ -69,6 +73,7 @@ class AP():
         transition["string"] = f"p,epsilon,epsilon;q,{item['NT']}"
         firstTransition = transition
         self.transitions.append(firstTransition)
+        # self.firstOutput_lastInput.append()
 
     def setSecondTransition(self, transition, item):
         transition["first"]["from"] = "q"
@@ -90,6 +95,42 @@ class AP():
             transition["string"] = f"q,{item},{item};q,epsilon"
             thirdTransition = transition
             self.transitions.append(thirdTransition)
+            transition = self.createTransition()
+
+    def generateAP(self, string):
+        stack = Stack()
+        print(f"Cadena a evaluar: {string}")
+        print(f"En la pila hay {stack.getItems()}")
+
+        for transition in self.transitions:
+            if transition["first"]["from"] == "p":
+                stack.push(transition["last"]["input"])
+                break
+
+        for letter in string:
+            for transition in self.transitions:
+                if transition["first"]["from"] == "q":
+                    if stack.getLastItem() == transition["first"]["output"]:
+                        stack.pop()
+                        word = transition["last"]["input"][::-1]
+                        for l in word:
+                            stack.push(l)
+                    else:
+                        for trans in self.transitions:
+                            if (trans["first"]["output"] == stack.getLastItem()) and (letter == trans["last"]["input"][0]):
+                                stack.pop()
+                                word = trans["last"]["input"][::-1]
+                                for l in word:
+                                    stack.push(l)
+                                break
+
+                            if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] == 'epsilon':
+                                stack.pop()
+                                break
+                    break
+
+            if letter == stack.getLastItem():
+                stack.pop()
 
     def getNonTerminals(self):
         return self.non_terminals

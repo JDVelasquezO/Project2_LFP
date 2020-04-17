@@ -1,5 +1,4 @@
 from AP import AP
-from Stack import Stack
 
 ap = AP("ap1")
 
@@ -20,3 +19,5 @@ ap.setProductions("N>bNb")
 ap.setProductions("N>z")
 
 ap.setTransitions()
+
+ap.generateAP("zazabzbz")
