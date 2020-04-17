@@ -128,7 +128,11 @@ class AP():
 
                             if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] == 'epsilon':
                                 stack.pop()
-                                # print(f"Pila actual: {stack.getItems()}")
+                                break
+
+                            if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] in self.non_terminals:
+                                stack.pop()
+                                stack.push(trans["last"]["input"])
                                 break
                     break
                 print(f"Pila actual: {stack.getItems()}")
