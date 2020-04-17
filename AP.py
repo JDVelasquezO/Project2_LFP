@@ -29,29 +29,36 @@ class AP():
         }
         self.productions.append(production)
 
+    def createTransition(self):
+        transition = { #Por cada produccion se crea una transicion básica
+            "first": {
+                "from": "",
+                "readed": "",
+                "output": ""
+            },
+
+            "last": {
+                "to": "",
+                "input": ""
+            },
+
+            "string": ""
+        }
+
+        return transition
+
     def setTransitions(self):
         for item in self.productions:
             
-            transition = { #Por cada produccion se crea una transicion básica
-                "first": {
-                    "from": "",
-                    "readed": "",
-                    "output": ""
-                },
-
-                "last": {
-                    "to": "",
-                    "input": ""
-                },
-
-                "string": ""
-            }
+            transition = self.createTransition()
 
             # Establece transicion para prod. inicial
             if (item["NT"] == self.non_terminal_initial):
                 self.setInitialTransition(transition, item)
-            
+                transition = self.createTransition()
+
             self.setSecondTransition(transition, item)
+        self.setThirdTransitions(transition)
     
     def setInitialTransition(self, transition, item):
         transition["first"]["from"] = "p"
@@ -69,8 +76,20 @@ class AP():
         transition["first"]["output"] = item["NT"]
         transition["last"]["to"] = "q"
         transition["last"]["input"] = item["prod"]
+        transition["string"] = f"q,epsilon,{item['NT']};q,{item['prod']}"
         secondTransition = transition
         self.transitions.append(secondTransition)
+
+    def setThirdTransitions(self, transition):
+        for item in self.terminals:
+            transition["first"]["from"] = "q"
+            transition["first"]["readed"] = item
+            transition["first"]["output"] = item
+            transition["last"]["to"] = "q"
+            transition["last"]["input"] = "epsilon"
+            transition["string"] = f"q,{item},{item};q,epsilon"
+            thirdTransition = transition
+            self.transitions.append(thirdTransition)
 
     def getNonTerminals(self):
         return self.non_terminals

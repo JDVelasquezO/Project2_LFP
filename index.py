@@ -15,7 +15,7 @@ ap.setNTInitial("S")
 
 ap.setProductions("S>zMNz")
 ap.setProductions("M>aMa")
-ap.setProductions("M>Nz")
+ap.setProductions("M>z")
 ap.setProductions("N>bNb")
 ap.setProductions("N>z")
 
