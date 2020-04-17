@@ -1,7 +1,8 @@
 import sys
 import os
+from grammar_AP import menuGrammar
 
-def menu():    
+def menu():
     while True:
         print("Menú General")
         print("1. Crear AFD")
@@ -13,6 +14,9 @@ def menu():
         print("7. Salir")
         opc = int(input("Escoje una opcion: "))
         os.system('clear')
+
+        if opc == 5:
+            menuGrammar()
 
         if opc == 6:
             break

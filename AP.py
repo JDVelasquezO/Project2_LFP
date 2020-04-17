@@ -143,6 +143,9 @@ class AP():
         
         print('epsilon')
 
+    def getName(self):
+        return self.name
+
     def getNonTerminals(self):
         return self.non_terminals
 
