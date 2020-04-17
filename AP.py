@@ -115,6 +115,7 @@ class AP():
                         word = transition["last"]["input"][::-1]
                         for l in word:
                             stack.push(l)
+                        print(f"Pila actual: {stack.getItems()}")
                     else:
                         for trans in self.transitions:
                             if (trans["first"]["output"] == stack.getLastItem()) and (letter == trans["last"]["input"][0]):
@@ -122,15 +123,20 @@ class AP():
                                 word = trans["last"]["input"][::-1]
                                 for l in word:
                                     stack.push(l)
+                                print(f"Pila actual: {stack.getItems()}")
                                 break
 
                             if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] == 'epsilon':
                                 stack.pop()
+                                # print(f"Pila actual: {stack.getItems()}")
                                 break
                     break
+                print(f"Pila actual: {stack.getItems()}")
 
             if letter == stack.getLastItem():
                 stack.pop()
+        
+        print('epsilon')
 
     def getNonTerminals(self):
         return self.non_terminals

@@ -17,9 +17,6 @@ class Stack():
             return self.items[len(self.items)-1]
         else:
             return "epsilon"
-
-    # def getPenultimateItem(self):
-    #     return self.items[len(self.items)-2]
     
     def getItems(self):
         if len(self.items) == 0:
