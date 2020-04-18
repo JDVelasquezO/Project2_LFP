@@ -193,3 +193,22 @@ class AP():
 
     def getTransitions(self):
         return self.transitions
+
+    def getGrammar(self):
+        stringNT = f"No Terminales: {self.non_terminals} \n"
+        stringT = f"Terminales: {self.terminals} \n"
+        stringNTI = f"Terminal inicial: {self.non_terminal_initial} \n"
+        stringProds = ""
+        stringTrans = ""
+
+        i = 1
+        for prod in self.productions:
+            stringProds += f"Produccion {i}: {prod['string']}\n"
+            i = i + 1
+
+        i = 1
+        for transition in self.transitions:
+            stringTrans += f"Transicion {i}: {transition['string']}\n"
+            i = i + 1
+            
+        return f"{stringNT}{stringT}{stringNTI}\n{stringProds}\n{stringTrans}"

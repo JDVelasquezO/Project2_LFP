@@ -23,7 +23,7 @@ ap.deleteProductions("M>Nza")
 
 ap.setTransitions()
 
-# for transition in ap.getTransitions():
-#     print(transition["string"])
-ap.generateAP("zazabzbz")
+# ap.generateAP("zazabzbz")
 # ap.generateAP("zzzzzzazabzbz")
+
+print(ap.getGrammar())
