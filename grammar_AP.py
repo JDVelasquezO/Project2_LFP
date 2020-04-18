@@ -2,6 +2,7 @@ import sys
 import os
 from createGrammar import create_grammar
 from generateAP import generateAP
+from validateString import validateString
 
 def menuGrammar():    
     while True:
@@ -20,6 +21,9 @@ def menuGrammar():
 
         if opc == 2:
             generateAP()
+
+        if opc == 4:
+            validateString()
 
         if opc == 6:
             break

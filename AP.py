@@ -120,7 +120,7 @@ class AP():
                             print(f"Pila actual: {stack.getItems()}")
                             
                             if stack.getItems() == 'epsilon':
-                                # marker = False
+                                marker = False
                                 print("Cadena Invalida")
                                 break
                         else:
