@@ -19,5 +19,5 @@ ap.setProductions("N>epsilon")
 
 ap.setTransitions()
 
-ap.generateAP("xxxyyyyxxx")
-# ap.generateAP("xxxyyyyxxyx")
+# ap.generateAP("xxxyyyyxxx")
+ap.generateAP("xxxyyyyxxyx")

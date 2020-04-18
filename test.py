@@ -23,4 +23,4 @@ ap.setTransitions()
 # for transition in ap.getTransitions():
 #     print(transition["string"])
 ap.generateAP("zazabzbz")
-# ap.generateAP("zzazabzbz")
+# ap.generateAP("zzzzzzazabzbz")

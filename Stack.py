@@ -12,6 +12,8 @@ class Stack():
     def pop(self):
         if len(self.items) > 0:
             return self.items.pop()
+        else:
+            return "Cadena Invalida"
 
     def getLastItem(self):
         if len(self.items) > 0:

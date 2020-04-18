@@ -118,8 +118,10 @@ class AP():
                             for l in word:
                                 stack.push(l)
                             print(f"Pila actual: {stack.getItems()}")
+                            
                             if stack.getItems() == 'epsilon':
-                                marker = False
+                                # marker = False
+                                print("Cadena Invalida")
                                 break
                         else:
                             for trans in self.transitions:
@@ -146,11 +148,16 @@ class AP():
                     print(f"Pila actual: {stack.getItems()}")
                     if stack.getItems() == 'epsilon':
                         marker = False
+                        print("Cadena Invalida")
                         break
 
-                if stack.getItems() == 'epsilon':
-                    marker = False
+                if marker == False:
                     break
+
+                # if stack.getItems() == 'epsilon':
+                    # marker = False
+                    # print("Cadena Invalida")
+                    # break
 
                 if letter == stack.getLastItem():
                     if stack.getLength() > 1:
@@ -159,7 +166,8 @@ class AP():
                 print(f"La letra {letter} no existe en el alfabeto")
                 break
         
-        print('epsilon')
+        if marker:
+            print('Cadena Valida')
 
     def getName(self):
         return self.name
