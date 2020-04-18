@@ -108,40 +108,45 @@ class AP():
                 break
 
         for letter in string:
-            for transition in self.transitions:
-                if transition["first"]["from"] == "q":
-                    if stack.getLastItem() == transition["first"]["output"]:
+            if letter in self.terminals:
+                for transition in self.transitions:
+                    if transition["first"]["from"] == "q":
+                        if stack.getLastItem() == transition["first"]["output"]:
+                            stack.pop()
+                            word = transition["last"]["input"][::-1]
+                            for l in word:
+                                stack.push(l)
+                            print(f"Pila actual: {stack.getItems()}")
+                        else:
+                            for trans in self.transitions:
+                                if (trans["first"]["output"] == stack.getLastItem()) and (letter == trans["last"]["input"][0]):
+                                    stack.pop()
+                                    word = trans["last"]["input"][::-1]
+                                    for l in word:
+                                        stack.push(l)
+                                    print(f"Pila actual: {stack.getItems()}")
+                                    break
+
+                                if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] == 'epsilon':
+                                    stack.pop()
+                                    break
+
+                                if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] in self.non_terminals:
+                                    stack.pop()
+                                    stack.push(trans["last"]["input"])
+                                    break
+                        break
+                    print(f"Pila actual: {stack.getItems()}")
+
+                if letter == stack.getLastItem():
+                    if stack.getLength() > 1:
                         stack.pop()
-                        word = transition["last"]["input"][::-1]
-                        for l in word:
-                            stack.push(l)
-                        print(f"Pila actual: {stack.getItems()}")
-                    else:
-                        for trans in self.transitions:
-                            if (trans["first"]["output"] == stack.getLastItem()) and (letter == trans["last"]["input"][0]):
-                                stack.pop()
-                                word = trans["last"]["input"][::-1]
-                                for l in word:
-                                    stack.push(l)
-                                print(f"Pila actual: {stack.getItems()}")
-                                break
-
-                            if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] == 'epsilon':
-                                stack.pop()
-                                break
-
-                            if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] in self.non_terminals:
-                                stack.pop()
-                                stack.push(trans["last"]["input"])
-                                break
-                    break
-                print(f"Pila actual: {stack.getItems()}")
-
-            if letter == stack.getLastItem():
-                if stack.getLength() > 1:
-                    stack.pop()
+            else:
+                print(f"La letra {letter} no existe en el alfabeto")
+                break
         
-        print('epsilon')
+        if stack.getLength() == 0:
+            print('epsilon')
 
     def getName(self):
         return self.name

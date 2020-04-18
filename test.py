@@ -20,6 +20,6 @@ ap.setProductions("N>z")
 
 ap.setTransitions()
 
-for transition in ap.getTransitions():
-    print(transition["string"])
-# ap.generateAP("zazabzbz")
+# for transition in ap.getTransitions():
+#     print(transition["string"])
+ap.generateAP("zazabzbz")
