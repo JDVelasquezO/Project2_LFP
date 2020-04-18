@@ -28,9 +28,16 @@ class AP():
         
         production = {
             "NT": nt,
-            "prod": prods
+            "prod": prods,
+            "string": f"{nt}>{prods}"
         }
         self.productions.append(production)
+
+    def deleteProductions(self, prodInput):
+        for prod in self.productions:
+            if prodInput == prod["string"]:
+                prodInput = prod
+                self.productions.remove(prodInput)
 
     def createTransition(self):
         transition = { #Por cada produccion se crea una transicion básica

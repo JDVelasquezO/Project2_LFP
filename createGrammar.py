@@ -33,6 +33,11 @@ def create_grammar():
             ap.setProductions(prod)
             os.system('clear')
 
+        if opc == 4:
+            prod = input("Ingresar produccion a borrar: ")
+            ap.deleteProductions(prod)
+            os.system('clear')
+
         if opc == 5:
             ntI = input("Ingresar No Terminal Inicial: ")
             ap.setNTInitial(ntI)

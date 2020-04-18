@@ -17,6 +17,9 @@ ap.setProductions("M>aMa")
 ap.setProductions("M>z")
 ap.setProductions("N>bNb")
 ap.setProductions("N>z")
+ap.setProductions("M>Nza")
+
+ap.deleteProductions("M>Nza")
 
 ap.setTransitions()
 
