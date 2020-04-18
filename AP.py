@@ -99,6 +99,7 @@ class AP():
 
     def generateAP(self, string):
         stack = Stack()
+        marker = True
         print(f"Cadena a evaluar: {string}")
         print(f"En la pila hay {stack.getItems()}")
 
@@ -117,26 +118,39 @@ class AP():
                             for l in word:
                                 stack.push(l)
                             print(f"Pila actual: {stack.getItems()}")
+                            if stack.getItems() == 'epsilon':
+                                marker = False
+                                break
                         else:
                             for trans in self.transitions:
-                                if (trans["first"]["output"] == stack.getLastItem()) and (letter == trans["last"]["input"][0]):
-                                    stack.pop()
-                                    word = trans["last"]["input"][::-1]
-                                    for l in word:
-                                        stack.push(l)
-                                    print(f"Pila actual: {stack.getItems()}")
-                                    break
+                                if (trans["first"]["output"] == stack.getLastItem()): 
+                                    
+                                    if (letter == trans["last"]["input"][0]):
+                                        stack.pop()
+                                        word = trans["last"]["input"][::-1]
+                                        for l in word:
+                                            stack.push(l)
+                                        print(f"Pila actual: {stack.getItems()}")
+                                        break
 
-                                if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] == 'epsilon':
-                                    stack.pop()
-                                    break
+                                    if trans["last"]["input"] == 'epsilon':
+                                        stack.pop()
+                                        break
 
-                                if trans["first"]["output"] == stack.getLastItem() and trans["last"]["input"] in self.non_terminals:
-                                    stack.pop()
-                                    stack.push(trans["last"]["input"])
-                                    break
+                                    if trans["last"]["input"] in self.non_terminals:
+                                        stack.pop()
+                                        stack.push(trans["last"]["input"])
+                                        break
                         break
+
                     print(f"Pila actual: {stack.getItems()}")
+                    if stack.getItems() == 'epsilon':
+                        marker = False
+                        break
+
+                if stack.getItems() == 'epsilon':
+                    marker = False
+                    break
 
                 if letter == stack.getLastItem():
                     if stack.getLength() > 1:
@@ -145,8 +159,7 @@ class AP():
                 print(f"La letra {letter} no existe en el alfabeto")
                 break
         
-        if stack.getLength() == 0:
-            print('epsilon')
+        print('epsilon')
 
     def getName(self):
         return self.name

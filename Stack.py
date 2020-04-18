@@ -10,7 +10,8 @@ class Stack():
         self.items.append(item)
 
     def pop(self):
-        return self.items.pop()
+        if len(self.items) > 0:
+            return self.items.pop()
 
     def getLastItem(self):
         if len(self.items) > 0:
