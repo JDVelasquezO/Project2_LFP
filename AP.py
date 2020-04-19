@@ -195,6 +195,7 @@ class AP():
         return self.transitions
 
     def getGrammar(self):
+        stringStatus = "Estados: [p, q]\n"
         stringNT = f"No Terminales: {self.non_terminals} \n"
         stringT = f"Terminales: {self.terminals} \n"
         stringNTI = f"Terminal inicial: {self.non_terminal_initial} \n"
@@ -211,4 +212,4 @@ class AP():
             stringTrans += f"Transicion {i}: {transition['string']}\n"
             i = i + 1
             
-        return f"{stringNT}{stringT}{stringNTI}\n{stringProds}\n{stringTrans}"
+        return f"{stringStatus}{stringNT}{stringT}{stringNTI}\n{stringProds}\n{stringTrans}"

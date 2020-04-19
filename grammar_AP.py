@@ -3,6 +3,7 @@ import os
 from createGrammar import create_grammar
 from generateAP import generateAP
 from validateString import validateString
+from displayAutomaton import displayAutomaton
 
 def menuGrammar():    
     while True:
@@ -21,6 +22,9 @@ def menuGrammar():
 
         if opc == 2:
             generateAP()
+
+        if opc == 3:
+            displayAutomaton()
 
         if opc == 4:
             validateString()
