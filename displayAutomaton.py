@@ -3,7 +3,7 @@ from createGrammar import globalGrammar
 from press_enter import wait_for
 from graphviz import Digraph
 
-def displayAutomaton(self):
+def displayAutomaton():
     
     grammarFinded = {}
 
@@ -13,17 +13,24 @@ def displayAutomaton(self):
             grammarFinded = grammar
             break
     
-    dot = Digraph(comment="automata_pila", filename="ap.gv")
+    print(grammarFinded.getGrammar())
+    
+    dot = Digraph(comment=f"{grammarFinded.getName()}", format="png")
     dot.attr(rankdir='LR', size='8,5')
     dot.attr('node', shape='doublecircle')
     dot.node('f')
 
     dot.attr('node', shape='circle')
-    dot.edge('i', 'p', 'Inicio')
+    dot.edge('i', 'p', f'{grammarFinded.getNTInitial()}')
 
     for trans in grammarFinded.getTransitions():
-        dot.edge(trans["first"]["from"], trans["last"]["to"], trans["last"]["input"])
+        firstState = trans["first"]["from"]
+        lastState = trans["last"]["to"]
+        string = trans["last"]["input"]
+        result = f"{firstState},{lastState};{string}"
 
-    dot.edge('q', 'f', 'epsilon;S;epsilon')
+        dot.edge(firstState, lastState, label=result)
 
-    dot.view()
+    dot.edge('q', 'f', f'epsilon,{grammarFinded.getNTInitial()};epsilon')
+
+    dot.render(filename="ap.gv")
