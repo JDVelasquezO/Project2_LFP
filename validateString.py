@@ -2,6 +2,7 @@ from AP import AP
 import os
 from createGrammar import globalGrammar
 from press_enter import wait_for
+from generateThree import generateThree
 
 def validateString():
     
@@ -13,8 +14,11 @@ def validateString():
             grammarFinded = grammar
             break
 
-    grammarFinded.setTransitions()
+    # grammarFinded.setTransitions()
     string = input("Ingresa la cadena a evaluar: ")
     grammarFinded.generateAP(string)
+
+    generateThree(grammarFinded, string)
+    
     wait_for("", "\n")
     os.system('clear')

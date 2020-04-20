@@ -107,8 +107,13 @@ class AP():
     def generateAP(self, string):
         stack = Stack()
         marker = True
+        msg = ""
+        returnTransition = []
+
         print(f"Cadena a evaluar: {string}")
+        msg = f"Cadena a evaluar: {string}\n"
         print(f"En la pila hay {stack.getItems()}")
+        msg += f"En la pila hay {stack.getItems()}\n"
 
         for transition in self.transitions:
             if transition["first"]["from"] == "p":
@@ -125,10 +130,12 @@ class AP():
                             for l in word:
                                 stack.push(l)
                             print(f"Pila actual: {stack.getItems()}")
+                            returnTransition.append(stack.getItems())
                             
                             if stack.getItems() == 'epsilon':
                                 marker = False
                                 print("Cadena Invalida")
+                                returnTransition.append("Cadena Invalida")
                                 break
                         else:
                             for trans in self.transitions:
@@ -140,6 +147,7 @@ class AP():
                                         for l in word:
                                             stack.push(l)
                                         print(f"Pila actual: {stack.getItems()}")
+                                        returnTransition.append(stack.getItems())
                                         break
 
                                     if trans["last"]["input"] == 'epsilon':
@@ -156,25 +164,25 @@ class AP():
                     if stack.getItems() == 'epsilon':
                         marker = False
                         print("Cadena Invalida")
+                        returnTransition.append("Cadena Invalida")
                         break
 
                 if marker == False:
                     break
-
-                # if stack.getItems() == 'epsilon':
-                    # marker = False
-                    # print("Cadena Invalida")
-                    # break
 
                 if letter == stack.getLastItem():
                     if stack.getLength() > 1:
                         stack.pop()
             else:
                 print(f"La letra {letter} no existe en el alfabeto")
+                returnTransition.append("Cadena Invalida")
                 break
         
         if marker:
             print('Cadena Valida')
+            returnTransition.append("Cadena Valida")
+        
+        return returnTransition
 
     def getName(self):
         return self.name
