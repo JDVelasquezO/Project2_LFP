@@ -1,5 +1,6 @@
 from AP import AP
 from generateThree import generateThree
+from displayAutomaton import displayAutomaton
 
 ap = AP("ap1")
 
@@ -26,6 +27,6 @@ ap.setTransitions()
 
 # print(ap.getGrammar())
 # Evaluar Cadenas
-# ap.generateAP("zazabzbz")
-# ap.generateAP("zzzzzzazabzbz")
-generateThree(ap, "zazabzbz")
+# print(ap.generateAP("zazabzbz"))
+ap.generateAP("zazabzbz")
+# generateThree(ap, "zazabzbz")

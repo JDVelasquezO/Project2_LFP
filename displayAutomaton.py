@@ -33,4 +33,4 @@ def displayAutomaton():
 
     dot.edge('q', 'f', f'epsilon,{grammarFinded.getNTInitial()};epsilon')
 
-    dot.render(filename="ap.gv")
+    dot.render(filename="ap")
