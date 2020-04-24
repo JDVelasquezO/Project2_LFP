@@ -1,6 +1,6 @@
 from AP import AP
 from generateThree import generateThree
-from displayAutomaton import displayAutomaton
+from generateReport import generateReport
 
 ap = AP("ap1")
 
@@ -25,8 +25,15 @@ ap.deleteProductions("M>Nza")
 
 ap.setTransitions()
 
+# Mostrar Gramatica
 # print(ap.getGrammar())
+
 # Evaluar Cadenas
 # print(ap.generateAP("zazabzbz"))
-ap.generateAP("zazabzbz")
-# generateThree(ap, "zazabzbz")
+# ap.generateAP("zazabzbz")
+
+# Mostrar Arbol
+generateThree(ap, "zazabzbz")
+
+# Generar Reportes
+# generateReport(ap, "zazabzbz")

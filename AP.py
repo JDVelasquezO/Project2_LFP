@@ -108,9 +108,10 @@ class AP():
         stack = Stack()
         marker = True
         returnTransition = []
+        returnProductions = []
 
-        print(f"Cadena a evaluar: {string}")
-        print(f"En la pila hay {stack.getItems()}")
+        # print(f"Cadena a evaluar: {string}")
+        # print(f"En la pila hay {stack.getItems()}")
 
         for transition in self.transitions:
             if transition["first"]["from"] == "p":
@@ -126,13 +127,12 @@ class AP():
                             word = transition["last"]["input"][::-1]
                             for l in word:
                                 stack.push(l)
-                            # if stack.getLastItem() in self.terminals:
-                            print(f"Pila actual: {stack.getItems()}")
+                            # print(f"Pila actual: {stack.getItems()}")
                             returnTransition.append(stack.getLastItem())
                             
                             if stack.getItems() == 'epsilon':
                                 marker = False
-                                print("Cadena Invalida")
+                                # print("Cadena Invalida")
                                 # returnTransition.append("Cadena Invalida")
                                 break
                         else:
@@ -144,8 +144,7 @@ class AP():
                                         word = trans["last"]["input"][::-1]
                                         for l in word:
                                             stack.push(l)
-                                        # if stack.getLastItem() in self.terminals:
-                                        print(f"Pila actual: {stack.getItems()}")
+                                        # print(f"Pila actual: {stack.getItems()}")
                                         returnTransition.append(stack.getLastItem())
                                         break
 
@@ -159,9 +158,9 @@ class AP():
                                         break
                         break
 
-                    # if stack.getLastItem() in self.terminals:
-                    print(f"Pila actual: {stack.getItems()}")
+                    # print(f"Pila actual: {stack.getItems()}")
                     returnTransition.append(stack.getLastItem())
+
                     if stack.getItems() == 'epsilon':
                         marker = False
                         # print("Cadena Invalida")
@@ -179,11 +178,12 @@ class AP():
                 returnTransition.append("Cadena Invalida")
                 break
         
-        if marker:
-            print('Cadena Valida')
-            returnTransition.append("Cadena Valida")
+        # if marker:
+            # print('Cadena Valida')
+            # returnTransition.append("Cadena Valida")
         
-        self.arrayOfTopStack(returnTransition)
+        # elementsForReport.append(elementsOfStack)
+        return returnTransition
 
     def arrayOfTopStack(self, array):
         return array
