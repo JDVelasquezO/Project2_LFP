@@ -127,8 +127,6 @@ class AP():
                             word = transition["last"]["input"][::-1]
                             for l in word:
                                 stack.push(l)
-                            print(f"Pila actual: {stack.getItems()}")
-                            returnTransition.append(stack.getLastItem())
                             
                             if stack.getItems() == 'epsilon':
                                 marker = False
@@ -152,11 +150,20 @@ class AP():
                                         stack.pop()
                                         break
 
-                                    if trans["last"]["input"] in self.non_terminals:
+                                    if trans["last"]["input"][0] in self.non_terminals:
                                         stack.pop()
-                                        stack.push(trans["last"]["input"])
+                                        for l in trans["last"]["input"][::-1]:
+                                            stack.push(l)
                                         break
-                        break
+                                
+                                # if trans["first"]["output"] == stack.getLastItem():
+                                #     break
+
+                            if letter == stack.getLastItem():
+                                break
+
+                            if trans['first']['output'] == letter:
+                                break
 
                     print(f"Pila actual: {stack.getItems()}")
                     returnTransition.append(stack.getLastItem())
@@ -167,12 +174,16 @@ class AP():
                         returnTransition.append("Cadena Invalida")
                         break
 
+                    if transition['first']['output'] == stack.getLastItem():
+                        break
+
                 if marker == False:
                     break
 
                 if letter == stack.getLastItem():
                     if stack.getLength() > 1:
                         stack.pop()
+
             else:
                 print(f"La letra {letter} no existe en el alfabeto")
                 returnTransition.append("Cadena Invalida")
