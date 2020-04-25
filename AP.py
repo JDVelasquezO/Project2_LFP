@@ -130,6 +130,11 @@ class AP():
                 
                 # Hacemos el grafo un estado inicial
                 dot.node(chr(i), transition["last"]["input"])
+                if stack.getLastItem() in self.getNonTerminals():
+                    nodeParent['key'] = chr(i)
+                    nodeParent['value'] = stack.getLastItem()
+                    nodesParents.append(nodeParent)
+                    nodeParent = {}
                 nodeTemp = chr(i)
                 i = i + 1
                 break
@@ -139,24 +144,10 @@ class AP():
                 for transition in self.transitions:
                     if transition["first"]["from"] == "q":
                         if stack.getLastItem() == transition["first"]["output"]:
-                            
 
                             stack.pop()
                             word = transition["last"]["input"][::-1]
                             for l in word:
-                                # Asignamos el siguiente contador a la letra y 
-                                # lo metemos en el array concatenado a la letra temporal
-                                dot.node(chr(i), l)
-
-                                # Guardamos los nodos padres clave: valor en un array
-                                if l in self.getNonTerminals():
-                                    nodeParent['key'] = chr(i)
-                                    nodeParent['value'] = l
-                                    nodesParents.append(nodeParent)
-                                    nodeParent = {}
-
-                                arrayEdges.append(nodeTemp+chr(i))
-                                i = i + 1
                                 stack.push(l)
                             
                             if stack.getItems() == 'epsilon':
@@ -166,10 +157,26 @@ class AP():
                                 break
                         else:
                             for trans in self.transitions:
-                                if (trans["first"]["output"] == stack.getLastItem()): 
+                                if (trans["first"]["output"] == stack.getLastItem()):
                                     
                                     if (letter == trans["last"]["input"][0]):
+
+                                        # Asignamos el siguiente contador a la letra y 
+                                        # lo metemos en el array concatenado a la letra temporal
+                                        dot.node(chr(i), stack.getLastItem())
+                                        # Guardamos los nodos padres clave: valor en un array
+                                        if stack.getLastItem() in self.getNonTerminals():
+                                            nodeParent['key'] = chr(i)
+                                            nodeParent['value'] = stack.getLastItem()
+                                            nodesParents.append(nodeParent)
+                                            nodeParent = {}
+                                        # Agregamos un nuevo nodo al array de nodos
+
+                                        arrayEdges.append(nodeTemp+chr(i))
+                                        i = i + 1
+
                                         stack.pop()
+
                                         word = trans["last"]["input"][::-1]
                                         for l in word:
                                             stack.push(l)
@@ -179,6 +186,12 @@ class AP():
                                         break
 
                                     if trans["last"]["input"] == 'epsilon':
+
+                                        # Mandamos un nodo con lo que sale
+                                        dot.node(chr(i), letter)
+                                        arrayEdges.append(nodeTemp+chr(i))
+                                        # Termino de nodo
+
                                         stack.pop()
                                         break
 
@@ -211,7 +224,16 @@ class AP():
 
                 if letter == stack.getLastItem():
                     if stack.getLength() > 1:
+
+                        nodeChild = letter
+
                         stack.pop()
+                        for parent in nodesParents:
+                            if stack.getLastItem() in parent['value']:
+                                dot.node(chr(i), nodeChild)
+                                arrayEdges.append(parent['key']+chr(i))
+                                nodeTemp = parent['key']
+                                break
 
             else:
                 print(f"La letra {letter} no existe en el alfabeto")
