@@ -29,11 +29,11 @@ ap.setTransitions()
 # print(ap.getGrammar())
 
 # Evaluar Cadenas
-# print(ap.generateAP("zazabzbz"))
+print(ap.generateAP("zazabzbz"))
 # ap.generateAP("zazabzbz")
 
 # Mostrar Arbol
-generateThree(ap, "zazabzbz")
+# generateThree(ap, "zazabzbz")
 
 # Generar Reportes
 # generateReport(ap, "zazabzbz")
