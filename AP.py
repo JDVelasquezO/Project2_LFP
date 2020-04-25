@@ -1,4 +1,5 @@
 from Stack import Stack
+from graphviz import Digraph
 
 class AP():
 
@@ -110,12 +111,27 @@ class AP():
         returnTransition = []
         returnProductions = []
 
+        # Variables de graphviz
+        arrayEdges = []
+        nodeTemp = ''
+        nodeParent = {}
+        nodesParents = []
+        dot = Digraph(comment=f"{self.getName()}", format="png")
+        dot.attr(rankdir='TB', size='8,5')
+        dot.attr('node', shape='circle')
+
         print(f"Cadena a evaluar: {string}")
         print(f"En la pila hay {stack.getItems()}")
 
+        i = 65
         for transition in self.transitions:
             if transition["first"]["from"] == "p":
                 stack.push(transition["last"]["input"])
+                
+                # Hacemos el grafo un estado inicial
+                dot.node(chr(i), transition["last"]["input"])
+                nodeTemp = chr(i)
+                i = i + 1
                 break
 
         for letter in string:
@@ -123,9 +139,24 @@ class AP():
                 for transition in self.transitions:
                     if transition["first"]["from"] == "q":
                         if stack.getLastItem() == transition["first"]["output"]:
+                            
+
                             stack.pop()
                             word = transition["last"]["input"][::-1]
                             for l in word:
+                                # Asignamos el siguiente contador a la letra y 
+                                # lo metemos en el array concatenado a la letra temporal
+                                dot.node(chr(i), l)
+
+                                # Guardamos los nodos padres clave: valor en un array
+                                if l in self.getNonTerminals():
+                                    nodeParent['key'] = chr(i)
+                                    nodeParent['value'] = l
+                                    nodesParents.append(nodeParent)
+                                    nodeParent = {}
+
+                                arrayEdges.append(nodeTemp+chr(i))
+                                i = i + 1
                                 stack.push(l)
                             
                             if stack.getItems() == 'epsilon':
@@ -142,6 +173,7 @@ class AP():
                                         word = trans["last"]["input"][::-1]
                                         for l in word:
                                             stack.push(l)
+
                                         print(f"Pila actual: {stack.getItems()}")
                                         returnTransition.append(stack.getLastItem())
                                         break
@@ -155,9 +187,6 @@ class AP():
                                         for l in trans["last"]["input"][::-1]:
                                             stack.push(l)
                                         break
-                                
-                                # if trans["first"]["output"] == stack.getLastItem():
-                                #     break
 
                             if letter == stack.getLastItem():
                                 break
@@ -188,12 +217,16 @@ class AP():
                 print(f"La letra {letter} no existe en el alfabeto")
                 returnTransition.append("Cadena Invalida")
                 break
+
+            i = i + 1
         
         if marker:
             print('Cadena Valida')
             returnTransition.append("Cadena Valida")
         
         # elementsForReport.append(elementsOfStack)
+        dot.edges(arrayEdges)
+        dot.render(filename="three")
         return returnTransition
 
     def arrayOfTopStack(self, array):

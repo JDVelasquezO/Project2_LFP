@@ -54,7 +54,6 @@ def generateThree(grammar, string):
 
     # dot.edges(['AB', 'AC', 'CD', 'CE', 'EF', 'CG', 'AH', 'HI', 'HJ', 'JK', 'HL', 'AM'])
     dot.edges(arrayEdges)
-    
     dot.render(filename="three")
 
 def pushRelations(relation, i, node, relations):
