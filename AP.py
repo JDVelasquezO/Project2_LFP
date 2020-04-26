@@ -156,7 +156,7 @@ class AP():
                                 break
                         else:
                             for trans in self.transitions:
-                                if (trans["first"]["output"] == stack.getLastItem()): 
+                                if (trans["first"]["output"] == stack.getLastItem()):
                                     
                                     if (letter == trans["last"]["input"][0]):
                                         newTransition = trans['string']
@@ -215,6 +215,21 @@ class AP():
                 break
 
             i = i + 1
+
+        if len(stack.getItems()) > 0:
+            while True:
+                if len(stack.getItems()) == 0:
+                    break
+                for trans in self.transitions:
+
+                    if (trans["first"]["output"] == stack.getLastItem()):
+                        if trans['first']['readed'] == 'epsilon' and trans['last']['input'] == 'epsilon':
+                            print(f"Pila actual: {stack.getItems()}")
+                            returnTransition.append(stack.getLastItem())
+                            self.generateReport(stack.getItems(), '--------', newTransition)
+                            stack.pop()
+                            break
+
         
         if marker:
             print('Cadena Valida')

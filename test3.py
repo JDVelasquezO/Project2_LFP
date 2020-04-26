@@ -35,10 +35,10 @@ ap.setProductions("F>h")
 ap.setTransitions()
 
 # Mostrar Gramatica
-# print(ap.getGrammar())
+print(ap.getGrammar())
 
 # Evaluar Cadenas
-print(ap.generateAP("ndnanch"))
+# print(ap.generateAP("ndnanch"))
 
 # Mostrar Arbol
 # generateThree(ap, "zazabzbz")
