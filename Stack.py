@@ -22,8 +22,6 @@ class Stack():
             return "epsilon"
     
     def getItems(self):
-        if len(self.items) == 0:
-            return "epsilon"
         return self.items
 
     def searchIndexById(self, id):
