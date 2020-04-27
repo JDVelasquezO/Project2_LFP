@@ -11,13 +11,15 @@ ap.setTerminals("y")
 
 ap.setNTInitial("S")
 
-ap.setProductions("S>xMx")
-ap.setProductions("M>xMx")
+ap.setProductions("S>x M x")
+ap.setProductions("M>x M x")
 ap.setProductions("M>N")
-ap.setProductions("N>yN")
+ap.setProductions("N>y N")
 ap.setProductions("N>epsilon")
 
 ap.setTransitions()
+
+# print(ap.getGrammar())
 
 print(ap.generateAP("xxxyyyyxxx"))
 # ap.generateAP("xxxyyyyxxyx")

@@ -31,11 +31,20 @@ class AP():
     def setProductions(self, prod):
         nt = prod.split(">")[0]
         prods = prod.split(">")[1]
+        marker = True
+        newProds = ''
+        
+        if prods == 'epsilon':
+            newProds += 'epsilon'
+        else:
+            for prod in prods:
+                if prod in self.terminals or prod in self.non_terminals:
+                    newProds += prod
         
         production = {
             "NT": nt,
-            "prod": prods,
-            "string": f"{nt}>{prods}"
+            "prod": newProds,
+            "string": f"{nt}>{newProds}"
         }
         self.productions.append(production)
 
@@ -230,7 +239,6 @@ class AP():
                             stack.pop()
                             break
 
-        
         if marker:
             print('Cadena Valida')
             returnTransition.append("Cadena Valida")
@@ -241,8 +249,6 @@ class AP():
             else:
                 self.generateReport(stack.getItems(), string, 'Aceptacion')
 
-        
-        # elementsForReport.append(elementsOfStack)
         return returnTransition
 
     def generateReport(self, eStack, eInput, eTransition):

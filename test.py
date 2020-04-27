@@ -14,14 +14,14 @@ ap.setTerminals("z")
 
 ap.setNTInitial("S")
 
-ap.setProductions("S>zMNz")
-ap.setProductions("M>aMa")
+ap.setProductions("S>z M N z")
+ap.setProductions("M>a M a")
 ap.setProductions("M>z")
-ap.setProductions("N>bNb")
+ap.setProductions("N>b N b")
 ap.setProductions("N>z")
-ap.setProductions("M>Nza")
+ap.setProductions("M>N z a")
 
-ap.deleteProductions("M>Nza")
+ap.deleteProductions("M>N z a")
 
 ap.setTransitions()
 

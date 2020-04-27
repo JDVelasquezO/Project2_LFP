@@ -21,13 +21,13 @@ ap.setTerminals("h")
 ap.setNTInitial("S")
 
 ap.setProductions("S>E")
-ap.setProductions("E>TZ")
-ap.setProductions("Z>aTZ")
-ap.setProductions("Z>bTZ")
+ap.setProductions("E>T Z")
+ap.setProductions("Z>a T Z")
+ap.setProductions("Z>b T Z")
 ap.setProductions("Z>epsilon")
-ap.setProductions("T>FY")
-ap.setProductions("Y>cFY")
-ap.setProductions("Y>dFY")
+ap.setProductions("T>F Y")
+ap.setProductions("Y>c F Y")
+ap.setProductions("Y>d F Y")
 ap.setProductions("Y>epsilon")
 ap.setProductions("F>n")
 ap.setProductions("F>h")
@@ -35,10 +35,10 @@ ap.setProductions("F>h")
 ap.setTransitions()
 
 # Mostrar Gramatica
-print(ap.getGrammar())
+# print(ap.getGrammar())
 
 # Evaluar Cadenas
-# print(ap.generateAP("ndnanch"))
+print(ap.generateAP("ndnanch"))
 
 # Mostrar Arbol
 # generateThree(ap, "zazabzbz")
