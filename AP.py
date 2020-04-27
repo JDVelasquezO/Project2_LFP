@@ -30,11 +30,13 @@ class AP():
 
     def setProductions(self, prod):
         nt = prod.split(">")[0]
-        prods = prod.split(">")[1]
+        prods = prod.split(">")[1].split(' ')
         marker = True
         newProds = ''
         
-        if prods == 'epsilon':
+        if len(prods) == 1:
+            newProds += prods[0]
+        elif prods == 'epsilon':
             newProds += 'epsilon'
         else:
             for prod in prods:
@@ -94,7 +96,8 @@ class AP():
         transition["last"]["input"] = item["NT"]
         transition["string"] = f"p,epsilon,epsilon;q,{item['NT']}"
         firstTransition = transition
-        self.transitions.append(firstTransition)
+        if firstTransition not in self.transitions:
+            self.transitions.append(firstTransition)
         # self.firstOutput_lastInput.append()
 
     def setSecondTransition(self, transition, item):
@@ -138,6 +141,9 @@ class AP():
                 break
 
         newTransition = transition['string']
+
+        if ' ' in string:
+            string = string.split(' ')
 
         i = 0
         for letter in string:
