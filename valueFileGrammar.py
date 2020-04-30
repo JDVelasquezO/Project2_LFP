@@ -10,29 +10,26 @@ def valueFileGrammar(name, file):
     globalGrammar.append(ap)
 
     lines = file.read().split("\n")
-    non_terminals = []
-    terminals = []
     productions = []
 
     productions = lines
 
     for line in lines:
-        non_terminals.append(line.split(">")[0])
+        nt = line.split(">")[0]
+        if nt not in ap.getNonTerminals():
+            ap.setNonTerminals(nt)
 
         produceds = line.split(">")[1]
         produced = produceds.split(" ")
 
         for prod in produced:
             if prod in lowercase:
-                terminals.append(prod)
+                if prod not in ap.getTerminals():
+                    ap.setTerminals(prod)
     
-    non_terminal_initial = lines[0][0]
-    non_terminals = set(non_terminals)
-    terminals = set(terminals)
+    ap.setNTInitial(lines[0][0])
 
-    ap.setNonTerminals = non_terminals
-    ap.setTerminals = terminals
-    ap.setProductions = productions
-    ap.setNTInitial = non_terminal_initial
-    # print(non_terminals)
+    for line in lines:
+        ap.setProductions(line)
+    print('Gramatica Guardada')
      

@@ -38,7 +38,7 @@ ap.setTransitions()
 # print(ap.getGrammar())
 
 # Evaluar Cadenas
-print(ap.generateAP("numero / numero + numero * cadena"))
+print(ap.generateAP("cadena * cadena + numero - cadena"))
 
 # Mostrar Arbol
 # generateThree(ap, "zazabzbz")
