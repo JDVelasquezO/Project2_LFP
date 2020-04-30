@@ -18,7 +18,7 @@ def validateString():
     string = input("Ingresa la cadena a evaluar: ")
     grammarFinded.generateAP(string)
 
-    generateThree(grammarFinded, string)
+    # generateThree(grammarFinded, string)
     
     wait_for("", "\n")
     os.system('clear')
