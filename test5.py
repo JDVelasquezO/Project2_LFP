@@ -5,16 +5,32 @@ from generateReport import generateReport
 ap = AP("ap1")
 
 ap.setNonTerminals("S")
+ap.setNonTerminals("E")
+ap.setNonTerminals("T")
+ap.setNonTerminals("W") # EP
+ap.setNonTerminals("Y") # TP
+ap.setNonTerminals("F")
 
-ap.setTerminals("a")
-ap.setTerminals("b")
-ap.setTerminals("c")
+ap.setTerminals("+")
+ap.setTerminals("-")
+ap.setTerminals("*")
+ap.setTerminals("/")
+ap.setTerminals("numero")
+ap.setTerminals("cadena")
 
 ap.setNTInitial("S")
 
-ap.setProductions("S>a S a")
-ap.setProductions("S>b S b")
-ap.setProductions("S>c")
+ap.setProductions("S>E")
+ap.setProductions("E>T W")
+ap.setProductions("W>+ T W")
+ap.setProductions("W>- T W")
+ap.setProductions("W>epsilon")
+ap.setProductions("T>F Y")
+ap.setProductions("Y>/ F Y")
+ap.setProductions("Y>* F Y")
+ap.setProductions("Y>epsilon")
+ap.setProductions("F>numero")
+ap.setProductions("F>cadena")
 
 ap.setTransitions()
 
@@ -22,7 +38,7 @@ ap.setTransitions()
 # print(ap.getGrammar())
 
 # Evaluar Cadenas
-print(ap.generateAP("abacaba"))
+print(ap.generateAP("numero / numero + numero * cadena"))
 
 # Mostrar Arbol
 # generateThree(ap, "zazabzbz")

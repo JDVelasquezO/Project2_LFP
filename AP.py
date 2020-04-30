@@ -147,7 +147,6 @@ class AP():
 
         i = 0
         for letter in string:
-            
             if i >= 2:
                 string = string[1:]
                 newString = list(string)
@@ -158,31 +157,37 @@ class AP():
                 for transition in self.transitions:
                     if transition["first"]["from"] == "q":
                         if stack.getLastItem() == transition["first"]["output"]:
-                            newTransition = transition['string']
-                            stack.pop()
-                            word = transition["last"]["input"][::-1]
-                            for l in word:
-                                stack.push(l)
-                            
-                            if stack.getItems() == 'epsilon':
-                                marker = False
-                                print("Cadena Invalida")
-                                returnTransition.append("Cadena Invalida")
-                                break
+                            if letter == transition['last']['input'][0]:
+                                newTransition = transition['string']
+                                stack.pop()
+                                word = transition["last"]["input"][::-1]
+                                for l in word:
+                                    stack.push(l)
+                                
+                                if stack.getItems() == 'epsilon':
+                                    marker = False
+                                    print("Cadena Invalida")
+                                    returnTransition.append("Cadena Invalida")
+                                    break
+                            else:
+                                continue
                         else:
                             for trans in self.transitions:
                                 if (trans["first"]["output"] == stack.getLastItem()):
                                     
-                                    if (letter == trans["last"]["input"][0]):
+                                    if (letter == trans["last"]["input"][0] or letter == trans["last"]["input"]):
                                         newTransition = trans['string']
                                         stack.pop()
-                                        word = trans["last"]["input"][::-1]
-                                        for l in word:
-                                            stack.push(l)
-                                        print(f"Pila actual: {stack.getItems()}")
-
-                                        self.generateReport(stack.getItems(), newString, newTransition)
                                         
+                                        if len(letter) > 1:
+                                            stack.push(letter)
+                                        else:
+                                            word = trans["last"]["input"][::-1]
+                                            for l in word:
+                                                stack.push(l)
+
+                                        print(f"Pila actual: {stack.getItems()}")
+                                        self.generateReport(stack.getItems(), newString, newTransition)
                                         returnTransition.append(stack.getLastItem())
                                         break
 
@@ -214,9 +219,6 @@ class AP():
                         marker = False
                         print("Cadena Invalida")
                         returnTransition.append("Cadena Invalida")
-                        break
-
-                    if transition['first']['output'] == stack.getLastItem():
                         break
 
                 if marker == False:
