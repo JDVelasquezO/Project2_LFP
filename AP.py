@@ -30,12 +30,12 @@ class AP():
 
     def setProductions(self, prod):
         nt = prod.split(">")[0]
-        prods = prod.split(">")[1].split(' ')
+        prods = prod.split(">")[1]
         marker = True
         newProds = ''
         
-        if len(prods) == 1:
-            newProds += prods[0]
+        if len(prods.split(' ')) == 1:
+            newProds += prods
         elif prods == 'epsilon':
             newProds += 'epsilon'
         else:
@@ -188,11 +188,13 @@ class AP():
 
                                     if trans["last"]["input"] == 'epsilon':
                                         newTransition = trans['string']
+                                        self.generateReport(stack.getItems(), newString, newTransition)
                                         stack.pop()
                                         break
 
                                     if trans["last"]["input"][0] in self.non_terminals:
                                         newTransition = trans['string']
+                                        self.generateReport(stack.getItems(), newString, newTransition)
                                         stack.pop()
                                         for l in trans["last"]["input"][::-1]:
                                             stack.push(l)
@@ -206,7 +208,7 @@ class AP():
 
                     print(f"Pila actual: {stack.getItems()}")
                     returnTransition.append(stack.getLastItem())
-                    self.generateReport(stack.getItems(), newString, newTransition)
+                    # self.generateReport(stack.getItems(), newString, newTransition)
 
                     if stack.getItems() == 'epsilon':
                         marker = False
@@ -241,6 +243,7 @@ class AP():
                         if trans['first']['readed'] == 'epsilon' and trans['last']['input'] == 'epsilon':
                             print(f"Pila actual: {stack.getItems()}")
                             returnTransition.append(stack.getLastItem())
+                            newTransition = trans['string']
                             self.generateReport(stack.getItems(), '--------', newTransition)
                             stack.pop()
                             break
