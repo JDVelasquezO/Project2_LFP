@@ -1,6 +1,7 @@
 import sys
 import os
 from grammar_AP import menuGrammar
+from chargeFiles import chargeFiles
 
 def menu():
     while True:
@@ -13,6 +14,9 @@ def menu():
 
         if opc == 1:
             menuGrammar()
+
+        if opc == 2:
+            chargeFiles()
 
         if opc == 3:
             break
