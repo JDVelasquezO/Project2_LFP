@@ -1,20 +1,18 @@
-// Entrada3
+// Entrada2
 digraph {
 	rankdir=LR size="8,5"
 	node [shape=doublecircle]
 	f
 	node [shape=circle]
-	i -> p [label=E]
-	p -> q [label="p,q;E"]
-	q -> q [label="q,q;TE"]
-	q -> q [label="q,q;TE"]
-	q -> q [label="q,q;TE"]
+	i -> p [label=L]
+	p -> q [label="p,q;L"]
+	q -> q [label="q,q;aMc"]
+	q -> q [label="q,q;aMc"]
+	q -> q [label="q,q;bNc"]
+	q -> q [label="q,q;bNc"]
 	q -> q [label="q,q;epsilon"]
-	q -> q [label="q,q;FT"]
-	q -> q [label="q,q;FT"]
-	q -> q [label="q,q;FT"]
 	q -> q [label="q,q;epsilon"]
-	q -> q [label="q,q;numero"]
-	q -> q [label="q,q;cadena"]
-	q -> f [label="epsilon,E;epsilon"]
+	q -> q [label="q,q;epsilon"]
+	q -> q [label="q,q;epsilon"]
+	q -> f [label="epsilon,L;epsilon"]
 }
