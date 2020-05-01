@@ -5,10 +5,9 @@ def valueFileGrammar(name, file):
     
     capital_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     lowercase = 'abcdefghijklmnopqrstuvwxyz'
-    symbols = '+-*/()?¿'
+    symbols = '+-*/()?¿$%¡!'
     
     ap = AP(name)
-    globalGrammar.append(ap)
 
     lines = file.read().split("\n")
     productions = []
@@ -37,5 +36,8 @@ def valueFileGrammar(name, file):
     for line in lines:
         if line != '':
             ap.setProductions(line)
+    
+    globalGrammar.append(ap)
+    ap = None
     print('Gramatica Guardada')
      

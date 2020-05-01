@@ -147,6 +147,7 @@ class AP():
 
         i = 0
         for letter in string:
+            indicator = False
             if i >= 2:
                 string = string[1:]
                 newString = list(string)
@@ -162,6 +163,7 @@ class AP():
                                 stack.pop()
                                 word = transition["last"]["input"][::-1]
                                 for l in word:
+                                    indicator = True
                                     stack.push(l)
                                 
                                 if stack.getItems() == 'epsilon':
@@ -188,12 +190,14 @@ class AP():
                                         print(f"Pila actual: {stack.getItems()}")
                                         self.generateReport(stack.getItems(), newString, newTransition)
                                         returnTransition.append(stack.getLastItem())
+                                        indicator = True
                                         break
 
                                     if trans["last"]["input"] == 'epsilon':
                                         newTransition = trans['string']
                                         self.generateReport(stack.getItems(), newString, newTransition)
                                         stack.pop()
+                                        indicator = True
                                         break
 
                                     if trans["last"]["input"][0] in self.non_terminals:
@@ -202,13 +206,11 @@ class AP():
                                         stack.pop()
                                         for l in trans["last"]["input"][::-1]:
                                             stack.push(l)
-                                        break
-
-                                    if trans['last']['input'][-1] == letter:
-                                        marker = False
+                                        indicator = True
                                         break
                             
-                            if not marker:
+                            if not indicator:
+                                marker = False
                                 break
 
                             if letter == stack.getLastItem():
@@ -220,6 +222,10 @@ class AP():
                     print(f"Pila actual: {stack.getItems()}")
                     returnTransition.append(stack.getLastItem())
                     # self.generateReport(stack.getItems(), newString, newTransition)
+
+                    # if not indicator:
+                    #     marker = False
+                    #     break
 
                     if stack.getItems() == 'epsilon':
                         marker = False
