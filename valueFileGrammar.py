@@ -5,6 +5,7 @@ def valueFileGrammar(name, file):
     
     capital_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     lowercase = 'abcdefghijklmnopqrstuvwxyz'
+    symbols = '+-*/()?¿'
     
     ap = AP(name)
     globalGrammar.append(ap)
@@ -15,21 +16,26 @@ def valueFileGrammar(name, file):
     productions = lines
 
     for line in lines:
-        nt = line.split(">")[0]
-        if nt not in ap.getNonTerminals():
-            ap.setNonTerminals(nt)
 
-        produceds = line.split(">")[1]
-        produced = produceds.split(" ")
+        if line != '':
+            nt = line.split(">")[0]
+            if nt in capital_letters:
+                if nt not in ap.getNonTerminals():
+                    ap.setNonTerminals(nt)
 
-        for prod in produced:
-            if prod in lowercase:
-                if prod not in ap.getTerminals():
-                    ap.setTerminals(prod)
+            produceds = line.split(">")[1]
+            produced = produceds.split(" ")
+
+            for prod in produced:
+                if prod not in capital_letters:
+                    if prod in symbols or prod != 'epsilon':
+                        if prod not in ap.getTerminals():
+                            ap.setTerminals(prod)
     
     ap.setNTInitial(lines[0][0])
 
     for line in lines:
-        ap.setProductions(line)
+        if line != '':
+            ap.setProductions(line)
     print('Gramatica Guardada')
      

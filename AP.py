@@ -228,6 +228,9 @@ class AP():
                     if stack.getLength() > 1:
                         stack.pop()
 
+                if len(stack.getItems()) == 0:
+                    break
+
             else:
                 print(f"La letra {letter} no existe en el alfabeto")
                 returnTransition.append("Cadena Invalida")
