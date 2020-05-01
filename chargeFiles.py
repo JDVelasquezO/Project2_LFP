@@ -17,6 +17,7 @@ def chargeFiles():
             files = open(route, 'r')
             print('Archivo cargado correctamente\n')
             valueFileGrammar(name, files)
+            files.close()
         
         if opc == 2:
             os.system('clear')

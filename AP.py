@@ -276,6 +276,7 @@ class AP():
         with myFile:
             writer = csv.writer(myFile)
             writer.writerows(self.myData)
+        myFile.close()
 
     def arrayOfTopStack(self, array):
         return array
