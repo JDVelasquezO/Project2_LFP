@@ -1,16 +1,13 @@
 from AP import AP
 import os
-from createGrammar import globalGrammar
-# from valueFileGrammar import globalGrammarFiles
 from press_enter import wait_for
-from generateThree import generateThree
 
 def validateString():
-    
+    from menu import globalGrammars
     grammarFinded = {}
 
     name = input("Introducir el nombre de la gramatica: ")
-    for grammar in globalGrammar:
+    for grammar in globalGrammars:
         if name == grammar.getName():
             grammarFinded = grammar
             break

@@ -3,6 +3,8 @@ import os
 from grammar_AP import menuGrammar
 from chargeFiles import chargeFiles
 
+globalGrammars = []
+
 def menu():
     while True:
         print("Menú General")
@@ -16,7 +18,12 @@ def menu():
             menuGrammar()
 
         if opc == 2:
-            chargeFiles()
+            grammar = chargeFiles()
+            globalGrammars.append(grammar)
+            
+            for item in globalGrammars:
+                print(item.getName())
+            grammar = {}
 
         if opc == 3:
             break

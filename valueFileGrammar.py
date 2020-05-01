@@ -1,5 +1,4 @@
 from AP import AP
-from createGrammar import globalGrammar
 
 def valueFileGrammar(name, file):
     
@@ -37,7 +36,5 @@ def valueFileGrammar(name, file):
         if line != '':
             ap.setProductions(line)
     
-    globalGrammar.append(ap)
-    ap = None
     print('Gramatica Guardada')
-     
+    return ap
