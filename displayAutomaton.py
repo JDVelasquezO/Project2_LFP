@@ -5,7 +5,7 @@ from graphviz import Digraph
 
 def displayAutomaton():
     
-    from menu import globalGrammars
+    from valueFileGrammar import globalGrammars
     grammarFinded = {}
 
     name = input("Introducir el nombre de la gramatica: ")

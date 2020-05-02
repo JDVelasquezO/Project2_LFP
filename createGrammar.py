@@ -5,9 +5,24 @@ def create_grammar():
     from valueFileGrammar import globalGrammars
 
     name = input("Escribir nombre de gramatica: ")
-    ap = AP(name)
-    globalGrammars.append(ap)
 
+    if len(globalGrammars) == 0:
+        ap = AP(name)
+        globalGrammars.append(ap)
+        menuBuildGrammar(ap)
+    else:
+        for grammar in globalGrammars:
+            if name == grammar.getName():
+                grammarFinded = grammar
+                menuBuildGrammar(grammarFinded)
+                break
+            else:
+                ap = AP(name)
+                globalGrammars.append(ap)
+                menuBuildGrammar(ap)
+                break
+
+def menuBuildGrammar(ap):
     while True:
         print("1. Ingresar Terminales")
         print("2. Ingresar NO Terminales")
