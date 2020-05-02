@@ -1,14 +1,15 @@
 import os
-from createGrammar import globalGrammar
+# from createGrammar import globalGrammar
 from press_enter import wait_for
 from graphviz import Digraph
 
 def displayAutomaton():
     
+    from menu import globalGrammars
     grammarFinded = {}
 
     name = input("Introducir el nombre de la gramatica: ")
-    for grammar in globalGrammar:
+    for grammar in globalGrammars:
         if name == grammar.getName():
             grammarFinded = grammar
             break

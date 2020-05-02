@@ -1,18 +1,16 @@
-// Entrada2
+// gram1
 digraph {
 	rankdir=LR size="8,5"
 	node [shape=doublecircle]
 	f
 	node [shape=circle]
-	i -> p [label=L]
-	p -> q [label="p,q;L"]
-	q -> q [label="q,q;aMc"]
-	q -> q [label="q,q;aMc"]
-	q -> q [label="q,q;bNc"]
-	q -> q [label="q,q;bNc"]
+	i -> p [label=S]
+	p -> q [label="p,q;S"]
+	q -> q [label="q,q;aSa"]
+	q -> q [label="q,q;bSb"]
+	q -> q [label="q,q;c"]
 	q -> q [label="q,q;epsilon"]
 	q -> q [label="q,q;epsilon"]
 	q -> q [label="q,q;epsilon"]
-	q -> q [label="q,q;epsilon"]
-	q -> f [label="epsilon,L;epsilon"]
+	q -> f [label="epsilon,S;epsilon"]
 }

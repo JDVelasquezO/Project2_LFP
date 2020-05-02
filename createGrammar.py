@@ -1,12 +1,12 @@
 from AP import AP
 import os
 
-globalGrammar = []
-
 def create_grammar():
+    from menu import globalGrammars
+
     name = input("Escribir nombre de gramatica: ")
     ap = AP(name)
-    globalGrammar.append(ap)
+    globalGrammars.append(ap)
 
     while True:
         print("1. Ingresar Terminales")

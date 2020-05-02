@@ -1,5 +1,4 @@
 from AP import AP
-from generateThree import generateThree
 from generateReport import generateReport
 
 ap = AP("ap1")

@@ -1,5 +1,5 @@
 from AP import AP
-from generateThree import generateThree
+from generateTree import generateTree
 from generateReport import generateReport
 
 ap = AP("ap1")
@@ -33,7 +33,7 @@ print(ap.generateAP("zazabzbz"))
 # ap.generateAP("zazabzbz")
 
 # Mostrar Arbol
-# generateThree(ap, "zazabzbz")
+# generateTree(ap, "zazabzbz")
 
 # Generar Reportes
 # generateReport(ap, "zazabzbz")

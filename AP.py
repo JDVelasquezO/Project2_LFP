@@ -130,14 +130,35 @@ class AP():
         newTransition = ''
         newString = ''
 
+        # Variables de graphviz
+        arrayEdges = []
+        nodeTemp = ''
+        nodeParent = {}
+        nodesParents = []
+        dot = Digraph(comment=f"{self.getName()}", format="png")
+        dot.attr(rankdir='TB', size='8,5')
+        dot.attr('node', shape='circle')
+
         print(f"Cadena a evaluar: {string}")
         print(f"En la pila hay {stack.getItems()}")
         self.generateReport('epsilon', string, self.transitions[0]['string'])
         newString = string
 
+        j = 65
         for transition in self.transitions:
             if transition["first"]["from"] == "p":
                 stack.push(transition["last"]["input"])
+
+                # Hacemos el grafo un estado inicial
+                dot.node(chr(j), transition["last"]["input"])
+                if stack.getLastItem() in self.getNonTerminals():
+                    nodeParent['key'] = chr(j)
+                    nodeParent['value'] = stack.getLastItem()
+                    nodesParents.append(nodeParent)
+                    nodeParent = {}
+                nodeTemp = chr(j)
+                j = j + 1
+
                 break
 
         newTransition = transition['string']
@@ -178,6 +199,20 @@ class AP():
                                 if (trans["first"]["output"] == stack.getLastItem()):
                                     if (letter == trans["last"]["input"][0] or letter == trans["last"]["input"]):
                                         newTransition = trans['string']
+
+                                        # Asignamos el siguiente contador a la letra y 
+                                        # lo metemos en el array concatenado a la letra temporal
+                                        dot.node(chr(j), stack.getLastItem())
+                                        # Guardamos los nodos padres clave: valor en un array
+                                        if stack.getLastItem() in self.getNonTerminals():
+                                            nodeParent['key'] = chr(j)
+                                            nodeParent['value'] = stack.getLastItem()
+                                            nodesParents.append(nodeParent)
+                                            nodeParent = {}
+                                        # Agregamos un nuevo nodo al array de nodos
+                                        arrayEdges.append(nodeTemp+chr(j))
+                                        j = j + 1
+
                                         stack.pop()
                                         
                                         if len(letter) > 1:
@@ -194,6 +229,12 @@ class AP():
                                         break
 
                                     if trans["last"]["input"] == 'epsilon':
+
+                                        # Mandamos un nodo con lo que sale
+                                        dot.node(chr(j), letter)
+                                        arrayEdges.append(nodeTemp+chr(j))
+                                        # Termino de nodo
+
                                         newTransition = trans['string']
                                         self.generateReport(stack.getItems(), newString, newTransition)
                                         stack.pop()
@@ -238,7 +279,15 @@ class AP():
 
                 if letter == stack.getLastItem():
                     if stack.getLength() > 1:
+                        nodeChild = letter
                         stack.pop()
+
+                        for parent in nodesParents:
+                            if stack.getLastItem() in parent['value']:
+                                dot.node(chr(j), nodeChild)
+                                arrayEdges.append(parent['key']+chr(j))
+                                nodeTemp = parent['key']
+                                break
 
                 if len(stack.getItems()) == 0:
                     break
@@ -249,6 +298,7 @@ class AP():
                 break
 
             i = i + 1
+            j = j + 1
 
         if marker:
             if len(stack.getItems()) > 0:
@@ -278,6 +328,8 @@ class AP():
         else:
             print("Cadena Invalida")
 
+        dot.edges(arrayEdges)
+        dot.render(filename="three")
         return returnTransition
 
     def generateReport(self, eStack, eInput, eTransition):
