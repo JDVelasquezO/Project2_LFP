@@ -18,6 +18,11 @@ class AP():
     
     def __init__(self, name):
         self.name = name
+        self.non_terminals = []
+        self.terminals = []
+        self.productions = []
+        self.transitions = []
+        self.non_terminal_initial = ''
 
     def setNonTerminals(self, nt):
         self.non_terminals.append(nt)

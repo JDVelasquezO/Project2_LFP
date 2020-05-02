@@ -1,9 +1,7 @@
 import sys
 import os
 from grammar_AP import menuGrammar
-from chargeFiles import chargeFiles
-
-globalGrammars = []
+from valueFileGrammar import valueFileGrammar
 
 def menu():
     while True:
@@ -18,12 +16,13 @@ def menu():
             menuGrammar()
 
         if opc == 2:
-            grammar = chargeFiles()
-            globalGrammars.append(grammar)
-            
-            for item in globalGrammars:
-                print(item.getName())
-            grammar = {}
-
+            route = input('Coloque una ruta:')
+            routeArray = route.split('/')
+            name = routeArray[-1].split(".")[0]
+            files = open(route, 'r')
+            print('Archivo cargado correctamente\n')
+            valueFileGrammar(name, files)
+            files.close()
+    
         if opc == 3:
             break

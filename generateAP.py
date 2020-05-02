@@ -3,7 +3,7 @@ from press_enter import wait_for
 
 def generateAP():
     
-    from menu import globalGrammars
+    from valueFileGrammar import globalGrammars
     grammarFinded = {} 
 
     name = input("Introducir el nombre de la gramatica: ")

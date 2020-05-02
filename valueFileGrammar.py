@@ -1,5 +1,8 @@
 from AP import AP
 
+global globalGrammars
+globalGrammars = list()
+
 def valueFileGrammar(name, file):
     
     capital_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -36,5 +39,5 @@ def valueFileGrammar(name, file):
         if line != '':
             ap.setProductions(line)
     
+    globalGrammars.append(ap)
     print('Gramatica Guardada')
-    return ap

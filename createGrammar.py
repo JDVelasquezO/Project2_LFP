@@ -2,7 +2,7 @@ from AP import AP
 import os
 
 def create_grammar():
-    from menu import globalGrammars
+    from valueFileGrammar import globalGrammars
 
     name = input("Escribir nombre de gramatica: ")
     ap = AP(name)
