@@ -313,7 +313,7 @@ class AP():
                     for trans in self.transitions:
 
                         if (trans["first"]["output"] == stack.getLastItem()):
-                            if trans['first']['readed'] == 'epsilon' and trans['last']['input'] == 'epsilon':
+                            if trans['first']['readed'] == 'epsilon' or trans['last']['input'] == 'epsilon':
                                 print(f"Pila actual: {stack.getItems()}")
                                 returnTransition.append(stack.getLastItem())
                                 newTransition = trans['string']
